@@ -1,0 +1,11 @@
+odiseo_sylius_geo_static_welcome:
+    path: /static-welcome/{name}
+    defaults:
+        _controller: OdiseoSyliusGeoPlugin:Greeting:staticallyGreet
+        name: ~
+
+odiseo_sylius_geo_dynamic_welcome:
+    path: /dynamic-welcome/{name}
+    defaults:
+        _controller: OdiseoSyliusGeoPlugin:Greeting:dynamicallyGreet
+        name: ~

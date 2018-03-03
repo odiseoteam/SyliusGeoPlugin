@@ -1,0 +1,4 @@
+suites:
+    main:
+        namespace: Odiseo\SyliusGeoPlugin
+        psr4_prefix: Odiseo\SyliusGeoPlugin
