@@ -8,7 +8,7 @@
 
 ## Description
 
-This plugin add geo to the Sylius address.
+This plugin add GeoLocation features to Sylius. 
 
 ## Installation
 

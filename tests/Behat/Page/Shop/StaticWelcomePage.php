@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Acme\SyliusExamplePlugin\Behat\Page\Shop;
+namespace Tests\Odiseo\SyliusGeoPlugin\Behat\Page\Shop;
 
 use Sylius\Behat\Page\SymfonyPage;
 
@@ -21,7 +21,7 @@ class StaticWelcomePage extends SymfonyPage implements WelcomePageInterface
      */
     public function getRouteName(): string
     {
-        return 'acme_sylius_example_static_welcome';
+        return 'odiseo_sylius_geo_static_welcome';
     }
 
     /**
