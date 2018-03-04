@@ -1,0 +1,21 @@
+parameters:
+services:
+    odiseo_sylius_geo.helper.ip_geolocalization:
+        class: Odiseo\SyliusGeoPlugin\Helper\IpGeolocalizationHelper
+        arguments: ["@request_stack", "@session", "@geoip2.reader"]
+
+    odiseo_sylius_geo.context.country.ip_country_based:
+        class: Odiseo\SyliusGeoPlugin\Context\Country\IpCountryBasedContext
+        arguments: ["@odiseo_sylius_geo.helper.ip_geolocalization"]
+
+    odiseo_sylius_geo.form.extension.type.address:
+        class: Odiseo\SyliusGeoPlugin\Form\Extension\AddressTypeExtension
+        arguments: ["@odiseo_sylius_geo.context.country.ip_country_based"]
+        tags:
+            - { name: form.type_extension, extended_type: Sylius\Bundle\AddressingBundle\Form\Type\AddressType }
+
+    odiseo_sylius_geo.twig_extension.geo:
+        class: Odiseo\SyliusGeoPlugin\Twig\GeoExtension
+        arguments: ["@odiseo_sylius_geo.helper.ip_geolocalization"]
+        tags:
+             - { name: twig.extension }

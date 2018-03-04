@@ -1,0 +1,4 @@
+odiseo_sylius_geo:
+    ui:
+        postcode_help: '*Write only 5-digit zip codes for shippings to Puerto Rico and the United States. For shippings to Nicaragua and the Dominican Republic, please write "00000"*'
+        phone_help: '*Please, fill this field in case we have to contact you directly*'
