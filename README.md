@@ -21,6 +21,7 @@ public function registerBundles(): array
 {
     $bundles = [
         ...
+        new \GpsLab\Bundle\GeoIP2Bundle\GpsLabGeoIP2Bundle(),
         new \Odiseo\SyliusGeoPlugin\OdiseoSyliusGeoPlugin(),
     ];
 }
