@@ -6,10 +6,7 @@ namespace Odiseo\SyliusGeoPlugin\Context\Country;
 
 use Odiseo\SyliusGeoPlugin\Helper\IpGeolocalizationHelper;
 
-/**
- * Should not be extended, final removed to make this class lazy.
- */
-/* final */ class IpCountryBasedContext implements CountryContextInterface
+class IpGeoBasedContext implements GeoContextInterface
 {
     /** @var IpGeolocalizationHelper $ipGeolocalizationHelper */
     protected $ipGeolocalizationHelper;

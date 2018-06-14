@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusGeoPlugin\Context\Country;
 
-interface CountryContextInterface
+interface GeoContextInterface
 {
     /**
      * @return string

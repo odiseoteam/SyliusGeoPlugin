@@ -5,7 +5,7 @@ namespace Odiseo\SyliusGeoPlugin\Form\Extension;
 use Odiseo\SyliusGeoPlugin\Context\Country\CountryContextInterface;
 use Sylius\Bundle\AddressingBundle\Form\Type\AddressType;
 use Symfony\Component\Form\AbstractTypeExtension;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Sylius\Bundle\AddressingBundle\Form\Type\CountryCodeChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class AddressTypeExtension extends AbstractTypeExtension
@@ -28,14 +28,8 @@ class AddressTypeExtension extends AbstractTypeExtension
         $countryCode = $this->countryContext->getCountryCode();
 
         $builder
-            ->add('postcode', 'text', array_replace($builder->get('postcode')->getOptions(), [
-                'help' => 'brandsof.ui.postcode_help',
-            ]))
-            ->add('phoneNumber', 'text', array_replace($builder->get('phoneNumber')->getOptions(), [
-                'help' => 'brandsof.ui.phone_help',
-            ]))
             ->remove('countryCode')
-            ->add('countryCode', CountryType::class, [
+            ->add('countryCode', CountryCodeChoiceType::class, [
                 'label' => 'sylius.form.address.country',
                 'data' => $countryCode
             ])
