@@ -8,7 +8,11 @@
 
 ## Description
 
-This plugin add GeoLocation features to Sylius. 
+This plugin add GeoLocation features to Sylius:
+
+- Autocomplete the country in the address form on the checkout page based on your ip
+- Provides cool twig helpers
+- More features coming...
 
 ## Installation
 
@@ -23,13 +27,20 @@ public function registerBundles(): array
         ...
         //This plugin use the geoip2 bundle
         new \GpsLab\Bundle\GeoIP2Bundle\GpsLabGeoIP2Bundle(),
-        
         new \Odiseo\SyliusGeoPlugin\OdiseoSyliusGeoPlugin(),
     ];
 }
 ```
 
-3. Execute `php bin/console geoip2:update`.
+3. Configure the plugin:
+
+##### app/config/config.yml
+```yml
+imports:
+    - { resource: '@OdiseoSyliusGeoPlugin/Resources/config/app/config.yml' }
+```
+
+4. Execute `php bin/console geoip2:update`.
 
 ## Credits
 
