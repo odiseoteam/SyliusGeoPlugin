@@ -4,6 +4,7 @@ namespace Odiseo\SyliusGeoPlugin\Form\Extension;
 
 use Odiseo\SyliusGeoPlugin\Context\Geo\GeoContextInterface;
 use Sylius\Bundle\AddressingBundle\Form\Type\AddressType;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Sylius\Bundle\AddressingBundle\Form\Type\CountryCodeChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,9 +16,19 @@ class AddressTypeExtension extends AbstractTypeExtension
      */
     private $geoContext;
 
-    public function __construct(GeoContextInterface $geoContext)
+    /**
+     * @var RepositoryInterface
+     */
+    private $countryRepository;
+
+    /**
+     * @param GeoContextInterface $geoContext
+     * @param RepositoryInterface $countryRepository
+     */
+    public function __construct(GeoContextInterface $geoContext, RepositoryInterface $countryRepository)
     {
         $this->geoContext = $geoContext;
+        $this->countryRepository = $countryRepository;
     }
 
     /**
@@ -27,13 +38,16 @@ class AddressTypeExtension extends AbstractTypeExtension
     {
         $countryCode = $this->geoContext->getCountryCode();
 
-        $builder
-            ->remove('countryCode')
-            ->add('countryCode', CountryCodeChoiceType::class, [
-                'label' => 'sylius.form.address.country',
-                'data' => $countryCode
-            ])
-        ;
+        $country = $this->countryRepository->findOneByCode($countryCode);
+
+        if ($country) {
+            $builder
+                ->remove('countryCode')
+                ->add('countryCode', CountryCodeChoiceType::class, [
+                    'label' => 'sylius.form.address.country',
+                    'data' => $countryCode
+                ]);
+        }
     }
 
     /**
