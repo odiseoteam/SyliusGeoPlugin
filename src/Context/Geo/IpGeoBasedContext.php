@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Odiseo\SyliusGeoPlugin\Context\Country;
+namespace Odiseo\SyliusGeoPlugin\Context\Geo;
 
 use Odiseo\SyliusGeoPlugin\Helper\IpGeolocalizationHelper;
 
