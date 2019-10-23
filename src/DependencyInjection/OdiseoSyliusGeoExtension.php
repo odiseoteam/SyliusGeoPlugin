@@ -17,6 +17,10 @@ final class OdiseoSyliusGeoExtension extends Extension
     public function load(array $config, ContainerBuilder $container): void
     {
         $config = $this->processConfiguration($this->getConfiguration([], $container), $config);
+
+        $container->setParameter('odiseo_sylius_geo_plugin.enabled_address_city_name', $config['enabled_address_city_name']);
+        $container->setParameter('odiseo_sylius_geo_plugin.enabled_address_postal_code', $config['enabled_address_postal_code']);
+
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         $loader->load('services.yaml');

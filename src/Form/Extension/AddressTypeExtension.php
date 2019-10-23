@@ -21,12 +21,22 @@ final class AddressTypeExtension extends AbstractTypeExtension
     /** @var RepositoryInterface */
     private $countryRepository;
 
+    /** @var bool */
+    private $enabledCityName;
+
+    /** @var bool */
+    private $enabledPostalCode;
+
     public function __construct(
         GeoContextInterface $geoContext,
-        RepositoryInterface $countryRepository
+        RepositoryInterface $countryRepository,
+        bool $enabledCityName,
+        bool $enabledPostalCode
     ) {
         $this->geoContext = $geoContext;
         $this->countryRepository = $countryRepository;
+        $this->enabledCityName = $enabledCityName;
+        $this->enabledPostalCode = $enabledPostalCode;
     }
 
     /**
@@ -51,28 +61,32 @@ final class AddressTypeExtension extends AbstractTypeExtension
             ;
         }
 
-        $cityName = $this->geoContext->getCityName();
+        if ($this->enabledCityName) {
+            $cityName = $this->geoContext->getCityName();
 
-        if ($cityName) {
-            $builder
-                ->remove('city')
-                ->add('city', TextType::class, [
-                    'label' => 'sylius.form.address.city',
-                    'data' => $cityName
-                ])
-            ;
+            if ($cityName) {
+                $builder
+                    ->remove('city')
+                    ->add('city', TextType::class, [
+                        'label' => 'sylius.form.address.city',
+                        'data' => $cityName
+                    ])
+                ;
+            }
         }
 
-        $postalCode = $this->geoContext->getPostalCode();
+        if ($this->enabledPostalCode) {
+            $postalCode = $this->geoContext->getPostalCode();
 
-        if ($postalCode) {
-            $builder
-                ->remove('postcode')
-                ->add('postcode', TextType::class, [
-                    'label' => 'sylius.form.address.postcode',
-                    'data' => $postalCode
-                ])
-            ;
+            if ($postalCode) {
+                $builder
+                    ->remove('postcode')
+                    ->add('postcode', TextType::class, [
+                        'label' => 'sylius.form.address.postcode',
+                        'data' => $postalCode
+                    ])
+                ;
+            }
         }
     }
 

@@ -22,6 +22,13 @@ final class Configuration implements ConfigurationInterface
             $rootNode = $treeBuilder->root('odiseo_sylius_geo_plugin');
         }
 
+        $rootNode
+            ->children()
+                ->booleanNode('enabled_address_city_name')->defaultValue(true)->end()
+                ->booleanNode('enabled_address_postal_code')->defaultValue(true)->end()
+            ->end()
+        ;
+
         return $treeBuilder;
     }
 }
