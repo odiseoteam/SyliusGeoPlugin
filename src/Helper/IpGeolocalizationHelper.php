@@ -1,39 +1,42 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusGeoPlugin\Helper;
 
 use GeoIp2\Database\Reader;
+use GeoIp2\Exception\AddressNotFoundException;
+use GeoIp2\Model\City;
+use MaxMind\Db\Reader\InvalidDatabaseException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-class IpGeolocalizationHelper
+final class IpGeolocalizationHelper
 {
-    /** @var $requestStack */
-    protected $requestStack;
+    /** @var RequestStack */
+    private $requestStack;
 
-    /** @var Session $session */
-    protected $session;
+    /** @var Session */
+    private $session;
 
-    /** @var Session $reader */
-    protected $reader;
+    /** @var Session */
+    private $reader;
 
-    /**
-     * @param RequestStack $requestStack
-     * @param Session $session
-     * @param Reader $reader
-     */
-    public function __construct(RequestStack $requestStack, Session $session, Reader $reader)
-    {
+    public function __construct(
+        RequestStack $requestStack,
+        Session $session,
+        Reader $reader
+    ) {
         $this->requestStack = $requestStack;
         $this->session = $session;
         $this->reader = $reader;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getContinentCode()
+    public function getContinentCode(): ?string
     {
         $continentCode = $this->getGeoParameter('continentCode');
         if(!$continentCode) {
@@ -42,6 +45,7 @@ class IpGeolocalizationHelper
             } catch (\Exception $e) {
                 $continentCode = '';
             }
+
             $this->setGeoParameter('continentCode', $continentCode);
         }
 
@@ -49,17 +53,18 @@ class IpGeolocalizationHelper
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCountryCode()
+    public function getCountryCode(): ?string
     {
         $countryCode = $this->getGeoParameter('countryCode');
-        if(!$countryCode) {
+        if (!$countryCode) {
             try {
                 $countryCode = $this->getCityRecord()->country->isoCode;
             } catch (\Exception $e) {
                 $countryCode = '';
             }
+
             $this->setGeoParameter('countryCode', $countryCode);
         }
 
@@ -67,12 +72,15 @@ class IpGeolocalizationHelper
     }
 
     /**
-     * @return \GeoIp2\Model\City
+     * @return City
+     * @throws AddressNotFoundException
+     * @throws InvalidDatabaseException
      */
-    protected function getCityRecord()
+    private function getCityRecord(): City
     {
         /** @var Request $request */
         $request = $this->requestStack->getMasterRequest();
+
         $ip = $request->getClientIp();
 
         return $this->reader->city($ip);
@@ -80,28 +88,29 @@ class IpGeolocalizationHelper
 
     /**
      * @param string $parameter
-     *
-     * @return string
+     * @return string|null
      */
-    protected function getGeoParameter($parameter)
+    private function getGeoParameter(string $parameter): ?string
     {
         $sessionParameter = '_geo_.'.$parameter;
 
-        if($this->session->has($sessionParameter))
+        if ($this->session->has($sessionParameter)) {
             return $this->session->get($sessionParameter);
+        }
 
-        return false;
+        return null;
     }
 
     /**
      * @param string $parameter
      * @param string $geo
      */
-    protected function setGeoParameter($parameter, $geo)
+    private function setGeoParameter(string $parameter, string $geo): void
     {
         $sessionParameter = '_geo_.'.$parameter;
 
-        if($geo !== '')
+        if ($geo !== '') {
             $this->session->set($sessionParameter, $geo);
+        }
     }
 }

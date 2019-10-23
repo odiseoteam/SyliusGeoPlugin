@@ -1,32 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusGeoPlugin\Form\Extension;
 
-use Odiseo\SyliusGeoPlugin\Context\Geo\GeoContextInterface;
+use Odiseo\SyliusGeoPlugin\Context\GeoContextInterface;
 use Sylius\Bundle\AddressingBundle\Form\Type\AddressType;
+use Sylius\Bundle\AddressingBundle\Form\Type\CountryCodeChoiceType;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Form\AbstractTypeExtension;
-use Sylius\Bundle\AddressingBundle\Form\Type\CountryCodeChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class AddressTypeExtension extends AbstractTypeExtension
+final class AddressTypeExtension extends AbstractTypeExtension
 {
-    /**
-     * @var GeoContextInterface
-     */
+    /** @var GeoContextInterface */
     private $geoContext;
 
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $countryRepository;
 
-    /**
-     * @param GeoContextInterface $geoContext
-     * @param RepositoryInterface $countryRepository
-     */
-    public function __construct(GeoContextInterface $geoContext, RepositoryInterface $countryRepository)
-    {
+    public function __construct(
+        GeoContextInterface $geoContext,
+        RepositoryInterface $countryRepository
+    ) {
         $this->geoContext = $geoContext;
         $this->countryRepository = $countryRepository;
     }
@@ -34,7 +30,7 @@ class AddressTypeExtension extends AbstractTypeExtension
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $countryCode = $this->geoContext->getCountryCode();
 
@@ -53,8 +49,8 @@ class AddressTypeExtension extends AbstractTypeExtension
     /**
      * @inheritdoc
      */
-    public function getExtendedType()
+    public function getExtendedTypes(): array
     {
-        return AddressType::class;
+        return [AddressType::class];
     }
 }

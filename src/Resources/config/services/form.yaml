@@ -1,0 +1,8 @@
+services:
+    odiseo_sylius_geo_plugin.form.extension.type.address:
+        class: Odiseo\SyliusGeoPlugin\Form\Extension\AddressTypeExtension
+        arguments:
+            - '@odiseo_sylius_geo_plugin.context.ip_geo_based'
+            - '@sylius.repository.country'
+        tags:
+            - { name: form.type_extension, extended_type: Sylius\Bundle\AddressingBundle\Form\Type\AddressType }

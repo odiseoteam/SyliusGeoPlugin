@@ -1,0 +1,5 @@
+services:
+    odiseo_sylius_geo_plugin.context.ip_geo_based:
+        class: Odiseo\SyliusGeoPlugin\Context\IpGeoBasedContext
+        arguments:
+            - '@odiseo_sylius_geo_plugin.helper.ip_geo_localization'

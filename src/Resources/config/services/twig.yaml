@@ -1,0 +1,7 @@
+services:
+    odiseo_sylius_geo_plugin.twig_extension.geo:
+        class: Odiseo\SyliusGeoPlugin\Twig\GeoExtension
+        arguments:
+            - '@odiseo_sylius_geo_plugin.helper.ip_geo_localization'
+        tags:
+            - { name: twig.extension }
