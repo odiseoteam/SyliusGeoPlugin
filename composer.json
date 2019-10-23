@@ -6,7 +6,7 @@
         "sylius-plugin",
         "sylius-geo"
     ],
-    "description": "Geo plugin for Sylius",
+    "description": "Add GeoLocation features to Sylius",
     "license": "MIT",
     "require": {
         "php": "^7.2",
