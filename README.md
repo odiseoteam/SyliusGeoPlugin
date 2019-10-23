@@ -1,6 +1,6 @@
 <h1 align="center">
     <a href="https://odiseo.com.ar/" target="_blank" title="Odiseo">
-        <img src="https://github.com/odiseoteam/SyliusGeoPlugin/blob/master/sylius-geo-plugin.png" alt="Sylius Geo Plugin" width="200px" />
+        <img src="https://github.com/odiseoteam/SyliusGeoPlugin/blob/master/sylius-geo-plugin.png" alt="Sylius Geo Plugin" />
     </a>
     <br />
     <a href="https://packagist.org/packages/odiseoteam/sylius-geo-plugin" title="License" target="_blank">
