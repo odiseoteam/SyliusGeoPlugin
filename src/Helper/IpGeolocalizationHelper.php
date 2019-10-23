@@ -20,7 +20,7 @@ final class IpGeolocalizationHelper
     /** @var Session */
     private $session;
 
-    /** @var Session */
+    /** @var Reader */
     private $reader;
 
     public function __construct(
@@ -39,7 +39,7 @@ final class IpGeolocalizationHelper
     public function getContinentCode(): ?string
     {
         $continentCode = $this->getGeoParameter('continentCode');
-        if(!$continentCode) {
+        if (!$continentCode) {
             try {
                 $continentCode = $this->getCityRecord()->continent->code;
             } catch (\Exception $e) {
