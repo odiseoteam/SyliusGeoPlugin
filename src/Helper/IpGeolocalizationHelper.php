@@ -43,7 +43,7 @@ final class IpGeolocalizationHelper
             try {
                 $continentCode = $this->getCityRecord()->continent->code;
             } catch (\Exception $e) {
-                $continentCode = '';
+                $continentCode = null;
             }
 
             $this->setGeoParameter('continentCode', $continentCode);
@@ -62,13 +62,51 @@ final class IpGeolocalizationHelper
             try {
                 $countryCode = $this->getCityRecord()->country->isoCode;
             } catch (\Exception $e) {
-                $countryCode = '';
+                $countryCode = null;
             }
 
             $this->setGeoParameter('countryCode', $countryCode);
         }
 
         return $countryCode;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCityName(): ?string
+    {
+        $cityName = $this->getGeoParameter('cityName');
+        if (!$cityName) {
+            try {
+                $cityName = $this->getCityRecord()->city->name;
+            } catch (\Exception $e) {
+                $cityName = null;
+            }
+
+            $this->setGeoParameter('cityName', $cityName);
+        }
+
+        return $cityName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPostalCode(): ?string
+    {
+        $postalCode = $this->getGeoParameter('postalCode');
+        if (!$postalCode) {
+            try {
+                $postalCode = $this->getCityRecord()->postal->code;
+            } catch (\Exception $e) {
+                $postalCode = null;
+            }
+
+            $this->setGeoParameter('postalCode', $postalCode);
+        }
+
+        return $postalCode;
     }
 
     /**
@@ -103,13 +141,13 @@ final class IpGeolocalizationHelper
 
     /**
      * @param string $parameter
-     * @param string $geo
+     * @param string|null $geo
      */
-    private function setGeoParameter(string $parameter, string $geo): void
+    private function setGeoParameter(string $parameter, ?string $geo): void
     {
         $sessionParameter = '_geo_.'.$parameter;
 
-        if ($geo !== '') {
+        if ($geo) {
             $this->session->set($sessionParameter, $geo);
         }
     }

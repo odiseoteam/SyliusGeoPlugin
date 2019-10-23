@@ -24,9 +24,12 @@ final class GeoExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        return array(
-            new TwigFunction('geo_continent_code', [$this, 'getContinentCode'])
-        );
+        return [
+            new TwigFunction('geo_continent_code', [$this, 'getContinentCode']),
+            new TwigFunction('geo_country_code', [$this, 'getCountryCode']),
+            new TwigFunction('geo_city_name', [$this, 'getCityName']),
+            new TwigFunction('geo_postal_code', [$this, 'getPostalCode'])
+        ];
     }
 
     /**
@@ -35,6 +38,30 @@ final class GeoExtension extends AbstractExtension
     public function getContinentCode(): ?string
     {
         return $this->ipGeolocalizationHelper->getContinentCode();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCountryCode(): ?string
+    {
+        return $this->ipGeolocalizationHelper->getCountryCode();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCityName(): ?string
+    {
+        return $this->ipGeolocalizationHelper->getCityName();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPostalCode(): ?string
+    {
+        return $this->ipGeolocalizationHelper->getPostalCode();
     }
 
     /**

@@ -24,4 +24,20 @@ final class IpGeoBasedContext implements GeoContextInterface
     {
         return $this->ipGeolocalizationHelper->getCountryCode();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCityName(): ?string
+    {
+        return $this->ipGeolocalizationHelper->getCityName();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPostalCode(): ?string
+    {
+        return $this->ipGeolocalizationHelper->getPostalCode();
+    }
 }
