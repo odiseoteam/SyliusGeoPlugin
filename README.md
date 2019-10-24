@@ -22,7 +22,7 @@
 
 ## Description
 
-This is a Sylius Plugin that add GeoLocation to your store with GeoIP2 API features:
+This is a Sylius Plugin that add Geolocation to your store with GeoIP2 API features:
 <a href="https://github.com/maxmind/GeoIP2-php" target="_blank" title="GeoIP2">https://github.com/maxmind/GeoIP2-php</a>
 
 Some of that features are:
