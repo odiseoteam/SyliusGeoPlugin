@@ -28,6 +28,7 @@ before_install:
 install:
     - composer install --no-interaction --prefer-dist
     - (cd tests/Application && yarn install)
+    - (cd tests/Application && bin/console geoip2:update)
 
 before_script:
     - (cd tests/Application && bin/console doctrine:database:create -vvv)
@@ -35,7 +36,6 @@ before_script:
     - (cd tests/Application && bin/console assets:install public -vvv)
     - (cd tests/Application && bin/console cache:warmup -vvv)
     - (cd tests/Application && yarn build)
-    - (cd tests/Application && bin/console geoip2:update)
 
     # Configure display
     - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1680x1050x16
