@@ -93,7 +93,7 @@ final class AddressTypeExtension extends AbstractTypeExtension
     /**
      * @inheritdoc
      */
-    public function getExtendedTypes(): array
+    public static function getExtendedTypes(): iterable
     {
         return [AddressType::class];
     }

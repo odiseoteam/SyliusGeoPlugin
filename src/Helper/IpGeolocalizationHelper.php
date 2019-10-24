@@ -119,7 +119,7 @@ final class IpGeolocalizationHelper
         /** @var Request $request */
         $request = $this->requestStack->getMasterRequest();
 
-        $ip = $request->getClientIp();
+        $ip = $request->getClientIp() === '127.0.0.1' ? '110.33.122.75' : $request->getClientIp();
 
         return $this->reader->city($ip);
     }

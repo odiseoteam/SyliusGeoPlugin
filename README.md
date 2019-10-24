@@ -91,6 +91,7 @@ This plugin comes with great twig functions.
 
 * Get province, latitude and longitude.
 * More cool twig helpers.
+* Create env parameters for IP test.
 
 ## Test the plugin
 

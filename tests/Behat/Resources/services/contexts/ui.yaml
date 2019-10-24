@@ -1,0 +1,6 @@
+services:
+    odiseo_sylius_geo_plugin.context.ui.shop.geo:
+        class: Tests\Odiseo\SyliusGeoPlugin\Behat\Context\Ui\Shop\GeoContext
+        public: true
+        tags:
+            - { name: fob.context_service }

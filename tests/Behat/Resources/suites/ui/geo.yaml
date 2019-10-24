@@ -1,0 +1,20 @@
+default:
+    suites:
+        ui_geo:
+            contexts:
+                - sylius.behat.context.hook.doctrine_orm
+
+                - sylius.behat.context.transform.lexical
+                - sylius.behat.context.transform.product
+
+                - sylius.behat.context.setup.channel
+                - sylius.behat.context.setup.geographical
+                - sylius.behat.context.setup.product
+
+                - sylius.behat.context.ui.shop.cart
+                - sylius.behat.context.ui.shop.checkout.addressing
+
+                - odiseo_sylius_geo_plugin.context.ui.shop.geo
+
+            filters:
+                tags: "@geo && @ui"
