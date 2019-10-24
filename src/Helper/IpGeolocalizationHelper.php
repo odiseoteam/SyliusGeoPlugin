@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-final class IpGeolocalizationHelper
+final class IpGeolocalizationHelper implements IpGeolocalizationHelperInterface
 {
     /** @var RequestStack */
     private $requestStack;
@@ -34,7 +34,7 @@ final class IpGeolocalizationHelper
     }
 
     /**
-     * @return string|null
+     * {@inheritdoc}
      */
     public function getContinentCode(): ?string
     {
@@ -53,7 +53,7 @@ final class IpGeolocalizationHelper
     }
 
     /**
-     * @return string|null
+     * {@inheritdoc}
      */
     public function getCountryCode(): ?string
     {
@@ -72,7 +72,7 @@ final class IpGeolocalizationHelper
     }
 
     /**
-     * @return string|null
+     * {@inheritdoc}
      */
     public function getCityName(): ?string
     {
@@ -91,7 +91,7 @@ final class IpGeolocalizationHelper
     }
 
     /**
-     * @return string|null
+     * {@inheritdoc}
      */
     public function getPostalCode(): ?string
     {
@@ -130,7 +130,7 @@ final class IpGeolocalizationHelper
      */
     private function getGeoParameter(string $parameter): ?string
     {
-        $sessionParameter = '_geo_.'.$parameter;
+        $sessionParameter = '_geo_'.$parameter;
 
         if ($this->session->has($sessionParameter)) {
             return $this->session->get($sessionParameter);
@@ -145,7 +145,7 @@ final class IpGeolocalizationHelper
      */
     private function setGeoParameter(string $parameter, ?string $geo): void
     {
-        $sessionParameter = '_geo_.'.$parameter;
+        $sessionParameter = '_geo_'.$parameter;
 
         if ($geo) {
             $this->session->set($sessionParameter, $geo);

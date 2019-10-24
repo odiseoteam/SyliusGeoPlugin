@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusGeoPlugin\Twig;
 
-use Odiseo\SyliusGeoPlugin\Helper\IpGeolocalizationHelper;
+use Odiseo\SyliusGeoPlugin\Helper\IpGeolocalizationHelperInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 final class GeoExtension extends AbstractExtension
 {
-    /** @var IpGeolocalizationHelper */
+    /** @var IpGeolocalizationHelperInterface */
     private $ipGeolocalizationHelper;
 
     public function __construct(
-        IpGeolocalizationHelper $ipGeolocalizationHelper
+        IpGeolocalizationHelperInterface $ipGeolocalizationHelper
     ) {
         $this->ipGeolocalizationHelper = $ipGeolocalizationHelper;
     }

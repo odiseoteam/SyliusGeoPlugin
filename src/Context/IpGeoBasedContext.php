@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusGeoPlugin\Context;
 
-use Odiseo\SyliusGeoPlugin\Helper\IpGeolocalizationHelper;
+use Odiseo\SyliusGeoPlugin\Helper\IpGeolocalizationHelperInterface;
 
 final class IpGeoBasedContext implements GeoContextInterface
 {
-    /** @var IpGeolocalizationHelper */
+    /** @var IpGeolocalizationHelperInterface */
     private $ipGeolocalizationHelper;
 
     public function __construct(
-        IpGeolocalizationHelper $ipGeolocalizationHelper
+        IpGeolocalizationHelperInterface $ipGeolocalizationHelper
     ) {
         $this->ipGeolocalizationHelper = $ipGeolocalizationHelper;
     }
