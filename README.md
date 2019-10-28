@@ -53,7 +53,6 @@ return [
     // ...
     GpsLab\Bundle\GeoIP2Bundle\GpsLabGeoIP2Bundle::class => ['all' => true],
     Odiseo\SyliusGeoPlugin\OdiseoSyliusGeoPlugin::class => ['all' => true],
-    // ...
 ];
 ```
 
