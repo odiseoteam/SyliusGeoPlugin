@@ -25,13 +25,13 @@
 This is a Sylius Plugin that add Geolocation to your store with GeoIP2 API features:
 <a href="https://github.com/maxmind/GeoIP2-php" target="_blank" title="GeoIP2">https://github.com/maxmind/GeoIP2-php</a>
 
-Some of that features are:
+Features:
 
 * Autocomplete fields: Add the country, city and postal code in the address form on the checkout page based on your ip.
 
 * Twig helpers: Provides cool twig helpers to get continent, country, city and postal code.
 
-Now supporting Sylius 1.6 with Symfony 4 + Flex structure.
+Support Sylius version 1.3+.
 
 ## Demo
 
