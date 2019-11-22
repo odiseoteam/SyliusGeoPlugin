@@ -1,4 +1,4 @@
-<h1 align="center">
+<p align="center">
     <a href="https://odiseo.com.ar/" target="_blank" title="Odiseo">
         <img src="https://github.com/odiseoteam/SyliusGeoPlugin/blob/master/sylius-geo-plugin.png" alt="Sylius Geo Plugin" />
     </a>
@@ -18,7 +18,7 @@
     <a href="https://packagist.org/packages/odiseoteam/sylius-geo-plugin" title="Total Downloads" target="_blank">
         <img src="https://poser.pugx.org/odiseoteam/sylius-geo-plugin/downloads" />
     </a>
-</h1>
+</p>
 
 ## Description
 
@@ -40,61 +40,11 @@ You can see this plugin in action in our Sylius Demo application.
 - Frontend: [sylius-demo.odiseo.com.ar](https://sylius-demo.odiseo.com.ar).
 - Administration: [sylius-demo.odiseo.com.ar/admin](https://sylius-demo.odiseo.com.ar/admin) with `odiseo: odiseo` credentials.
 
-## Installation
+## Documentation
 
-1. Run `composer require odiseoteam/sylius-geo-plugin`.
-
-2. Enable the plugin in bundles.php
-
-```php
-<?php
-
-return [
-    // ...
-    GpsLab\Bundle\GeoIP2Bundle\GpsLabGeoIP2Bundle::class => ['all' => true],
-    Odiseo\SyliusGeoPlugin\OdiseoSyliusGeoPlugin::class => ['all' => true],
-];
-```
-
-3. Import the plugin configurations
-
-```yml
-imports:
-    - { resource: "@OdiseoSyliusGeoPlugin/Resources/config/config.yaml" }
-```
-
-4. Execute `bin/console geoip2:update`.
-
-You can enable or disable some features in checkout addressing step
-
-```yml
-odiseo_sylius_geo_plugin:
-    enabled_address_city_name: false
-    enabled_address_postal_code: true
-```
-
-## Usage
-
-This plugin comes with great twig functions.
-
-#### Get the twig methods on your template
-
-```twig
-{% set continent = geo_continent_code() %}
-{% set country = geo_country_code() %}
-{% set city = geo_city_name() %}
-{% set postal_code = geo_postal_code() %}
-```
-
-## Todo
-
-* Get province, latitude and longitude.
-* More cool twig helpers.
-* Create env parameters for IP test.
-
-## Test the plugin
-
-You can follow the instructions to test this plugins in the proper documentation page: [Test the plugin](doc/tests.md).
+- [Installation](doc/installation.md)
+- [Usage](doc/usage.md)
+- [Tests](doc/tests.md)
 
 ## Credits
 
