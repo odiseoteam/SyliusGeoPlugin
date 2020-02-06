@@ -25,4 +25,11 @@ imports:
     - { resource: "@OdiseoSyliusGeoPlugin/Resources/config/config.yaml" }
 ```
 
-4. Execute `bin/console geoip2:update`.
+4. Add the enviroment variables
+
+```yml
+ODISEO_GEOIP_LICENCE_KEY=EDITME
+ODISEO_GEOIP_EDITION_ID=EDITME
+```
+
+5. Execute `bin/console geoip2:update`.

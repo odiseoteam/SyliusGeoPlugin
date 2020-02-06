@@ -1,4 +1,4 @@
 gpslab_geoip:
-    # Path to download GeoIP database.
-    # It's a default value. You can change it.
-    cache: '%kernel.project_dir%/var/GeoLite2-City.mmdb'
+    license: '%env(ODISEO_GEOIP_LICENCE_KEY)%'
+    edition: '%env(ODISEO_GEOIP_EDITION_ID)%'
+    path: '%kernel.project_dir%/var/GeoLite2-City.mmdb'
