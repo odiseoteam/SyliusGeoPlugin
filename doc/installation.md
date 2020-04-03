@@ -29,7 +29,6 @@ imports:
 
 ```yml
 ODISEO_GEOIP_LICENCE_KEY=EDITME
-ODISEO_GEOIP_EDITION_ID=EDITME
 ```
 
 5. Execute `bin/console geoip2:update`.

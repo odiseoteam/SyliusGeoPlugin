@@ -1,4 +1,4 @@
 gpslab_geoip:
     license: '%env(ODISEO_GEOIP_LICENCE_KEY)%'
-    edition: '%env(ODISEO_GEOIP_EDITION_ID)%'
+    edition: 'GeoLite2-City'
     path: '%kernel.project_dir%/var/GeoLite2-City.mmdb'
