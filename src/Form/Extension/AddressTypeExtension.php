@@ -9,9 +9,11 @@ use Sylius\Bundle\AddressingBundle\Form\Type\AddressType;
 use Sylius\Bundle\AddressingBundle\Form\Type\CountryCodeChoiceType;
 use Sylius\Component\Addressing\Model\CountryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 final class AddressTypeExtension extends AbstractTypeExtension
 {
@@ -27,16 +29,26 @@ final class AddressTypeExtension extends AbstractTypeExtension
     /** @var bool */
     private $enabledPostalCode;
 
+    /** @var FirewallMap */
+    private $firewallMap;
+
+    /** @var RequestStack */
+    private $requestStack;
+
     public function __construct(
         GeoContextInterface $geoContext,
         RepositoryInterface $countryRepository,
         bool $enabledCityName,
-        bool $enabledPostalCode
+        bool $enabledPostalCode,
+        FirewallMap $firewallMap,
+        RequestStack $requestStack
     ) {
         $this->geoContext = $geoContext;
         $this->countryRepository = $countryRepository;
         $this->enabledCityName = $enabledCityName;
         $this->enabledPostalCode = $enabledPostalCode;
+        $this->firewallMap = $firewallMap;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -44,22 +56,7 @@ final class AddressTypeExtension extends AbstractTypeExtension
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $countryCode = $this->geoContext->getCountryCode();
-
-        /** @var CountryInterface $country */
-        $country = $this->countryRepository->findOneBy([
-            'code' => $countryCode
-        ]);
-
-        if ($country instanceof CountryInterface) {
-            $builder
-                ->remove('countryCode')
-                ->add('countryCode', CountryCodeChoiceType::class, [
-                    'label' => 'sylius.form.address.country',
-                    'data' => $countryCode
-                ])
-            ;
-        }
+        $this->getCountryCode($builder);
 
         if ($this->enabledCityName) {
             $cityName = $this->geoContext->getCityName();
@@ -96,5 +93,29 @@ final class AddressTypeExtension extends AbstractTypeExtension
     public static function getExtendedTypes(): iterable
     {
         return [AddressType::class];
+    }
+
+    private function getCountryCode(FormBuilderInterface $builder)
+    {
+        $context = $this->firewallMap->getFirewallConfig($this->requestStack->getCurrentRequest())->getContext();
+
+        if ('shop' === $context) {
+            $countryCode = $this->geoContext->getCountryCode();
+
+            /** @var CountryInterface $country */
+            $country = $this->countryRepository->findOneBy([
+                'code' => $countryCode
+            ]);
+
+            if ($country instanceof CountryInterface) {
+                $builder
+                    ->remove('countryCode')
+                    ->add('countryCode', CountryCodeChoiceType::class, [
+                        'label' => 'sylius.form.address.country',
+                        'data' => $countryCode
+                    ])
+                ;
+            }
+        }
     }
 }
