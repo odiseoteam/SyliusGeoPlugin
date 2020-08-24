@@ -9,6 +9,7 @@ use Sylius\Bundle\AddressingBundle\Form\Type\AddressType;
 use Sylius\Bundle\AddressingBundle\Form\Type\CountryCodeChoiceType;
 use Sylius\Component\Addressing\Model\CountryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Symfony\Bundle\SecurityBundle\Security\FirewallConfig;
 use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -117,7 +118,15 @@ final class AddressTypeExtension extends AbstractTypeExtension
      */
     private function isShopContext()
     {
-        $context = $this->firewallMap->getFirewallConfig($this->requestStack->getCurrentRequest())->getContext();
+        $request = $this->requestStack->getCurrentRequest();
+
+        $firewallConfig = $this->firewallMap->getFirewallConfig($request);
+
+        if (!$firewallConfig instanceof FirewallConfig) {
+            return false;
+        }
+
+        $context = $firewallConfig->getContext();
 
         return 'shop' === $context;
     }
