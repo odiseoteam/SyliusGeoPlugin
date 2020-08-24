@@ -73,6 +73,7 @@ final class AddressTypeExtension extends AbstractTypeExtension
                     ])
                 ;
             }
+
             if ($this->enabledCityName) {
                 $cityName = $this->geoContext->getCityName();
 
@@ -100,7 +101,7 @@ final class AddressTypeExtension extends AbstractTypeExtension
                     ;
                 }
             }
-        };
+        }
     }
 
     /**
@@ -111,10 +112,13 @@ final class AddressTypeExtension extends AbstractTypeExtension
         return [AddressType::class];
     }
 
+    /**
+     * @return bool
+     */
     private function isShopContext()
     {
         $context = $this->firewallMap->getFirewallConfig($this->requestStack->getCurrentRequest())->getContext();
 
-        return ('shop' === $context);
+        return 'shop' === $context;
     }
 }
