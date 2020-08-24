@@ -56,50 +56,7 @@ final class AddressTypeExtension extends AbstractTypeExtension
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $this->getCountryCode($builder);
-
-        if ($this->enabledCityName) {
-            $cityName = $this->geoContext->getCityName();
-
-            if ($cityName) {
-                $builder
-                    ->remove('city')
-                    ->add('city', TextType::class, [
-                        'label' => 'sylius.form.address.city',
-                        'data' => $cityName
-                    ])
-                ;
-            }
-        }
-
-        if ($this->enabledPostalCode) {
-            $postalCode = $this->geoContext->getPostalCode();
-
-            if ($postalCode) {
-                $builder
-                    ->remove('postcode')
-                    ->add('postcode', TextType::class, [
-                        'label' => 'sylius.form.address.postcode',
-                        'data' => $postalCode
-                    ])
-                ;
-            }
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function getExtendedTypes(): iterable
-    {
-        return [AddressType::class];
-    }
-
-    private function getCountryCode(FormBuilderInterface $builder)
-    {
-        $context = $this->firewallMap->getFirewallConfig($this->requestStack->getCurrentRequest())->getContext();
-
-        if ('shop' === $context) {
+        if ($this->isShopContext()) {
             $countryCode = $this->geoContext->getCountryCode();
 
             /** @var CountryInterface $country */
@@ -116,6 +73,48 @@ final class AddressTypeExtension extends AbstractTypeExtension
                     ])
                 ;
             }
-        }
+            if ($this->enabledCityName) {
+                $cityName = $this->geoContext->getCityName();
+
+                if ($cityName) {
+                    $builder
+                        ->remove('city')
+                        ->add('city', TextType::class, [
+                            'label' => 'sylius.form.address.city',
+                            'data' => $cityName
+                        ])
+                    ;
+                }
+            }
+
+            if ($this->enabledPostalCode) {
+                $postalCode = $this->geoContext->getPostalCode();
+
+                if ($postalCode) {
+                    $builder
+                        ->remove('postcode')
+                        ->add('postcode', TextType::class, [
+                            'label' => 'sylius.form.address.postcode',
+                            'data' => $postalCode
+                        ])
+                    ;
+                }
+            }
+        };
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getExtendedTypes(): iterable
+    {
+        return [AddressType::class];
+    }
+
+    private function isShopContext()
+    {
+        $context = $this->firewallMap->getFirewallConfig($this->requestStack->getCurrentRequest())->getContext();
+
+        return ('shop' === $context);
     }
 }
