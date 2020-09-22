@@ -6,7 +6,5 @@ services:
             - '@sylius.repository.country'
             - '%odiseo_sylius_geo_plugin.enabled_address_city_name%'
             - '%odiseo_sylius_geo_plugin.enabled_address_postal_code%'
-            - '@security.firewall.map'
-            - '@request_stack'
         tags:
             - { name: form.type_extension, extended_type: Sylius\Bundle\AddressingBundle\Form\Type\AddressType }

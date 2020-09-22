@@ -8,13 +8,13 @@ use Odiseo\SyliusGeoPlugin\Context\GeoContextInterface;
 use Sylius\Bundle\AddressingBundle\Form\Type\AddressType;
 use Sylius\Bundle\AddressingBundle\Form\Type\CountryCodeChoiceType;
 use Sylius\Component\Addressing\Model\CountryInterface;
+use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Symfony\Bundle\SecurityBundle\Security\FirewallConfig;
-use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 final class AddressTypeExtension extends AbstractTypeExtension
 {
@@ -30,26 +30,16 @@ final class AddressTypeExtension extends AbstractTypeExtension
     /** @var bool */
     private $enabledPostalCode;
 
-    /** @var FirewallMap */
-    private $firewallMap;
-
-    /** @var RequestStack */
-    private $requestStack;
-
     public function __construct(
         GeoContextInterface $geoContext,
         RepositoryInterface $countryRepository,
         bool $enabledCityName,
-        bool $enabledPostalCode,
-        FirewallMap $firewallMap,
-        RequestStack $requestStack
+        bool $enabledPostalCode
     ) {
         $this->geoContext = $geoContext;
         $this->countryRepository = $countryRepository;
         $this->enabledCityName = $enabledCityName;
         $this->enabledPostalCode = $enabledPostalCode;
-        $this->firewallMap = $firewallMap;
-        $this->requestStack = $requestStack;
     }
 
     /**
@@ -57,7 +47,18 @@ final class AddressTypeExtension extends AbstractTypeExtension
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        if ($this->isShopContext()) {
+        $builder->addEventListener(
+            FormEvents::POST_SET_DATA,
+            [$this, 'onPostSetData']
+        );
+    }
+
+    public function onPostSetData(FormEvent $event)
+    {
+        $address = $event->getData();
+        $form = $event->getForm();
+
+        if (!$address instanceof AddressInterface) {
             $countryCode = $this->geoContext->getCountryCode();
 
             /** @var CountryInterface $country */
@@ -66,7 +67,7 @@ final class AddressTypeExtension extends AbstractTypeExtension
             ]);
 
             if ($country instanceof CountryInterface) {
-                $builder
+                $form
                     ->remove('countryCode')
                     ->add('countryCode', CountryCodeChoiceType::class, [
                         'label' => 'sylius.form.address.country',
@@ -79,7 +80,7 @@ final class AddressTypeExtension extends AbstractTypeExtension
                 $cityName = $this->geoContext->getCityName();
 
                 if ($cityName) {
-                    $builder
+                    $form
                         ->remove('city')
                         ->add('city', TextType::class, [
                             'label' => 'sylius.form.address.city',
@@ -93,7 +94,7 @@ final class AddressTypeExtension extends AbstractTypeExtension
                 $postalCode = $this->geoContext->getPostalCode();
 
                 if ($postalCode) {
-                    $builder
+                    $form
                         ->remove('postcode')
                         ->add('postcode', TextType::class, [
                             'label' => 'sylius.form.address.postcode',
@@ -111,23 +112,5 @@ final class AddressTypeExtension extends AbstractTypeExtension
     public static function getExtendedTypes(): iterable
     {
         return [AddressType::class];
-    }
-
-    /**
-     * @return bool
-     */
-    private function isShopContext()
-    {
-        $request = $this->requestStack->getCurrentRequest();
-
-        $firewallConfig = $this->firewallMap->getFirewallConfig($request);
-
-        if (!$firewallConfig instanceof FirewallConfig) {
-            return false;
-        }
-
-        $context = $firewallConfig->getContext();
-
-        return 'shop' === $context;
     }
 }

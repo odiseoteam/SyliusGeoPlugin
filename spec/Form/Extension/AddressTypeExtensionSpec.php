@@ -9,26 +9,13 @@ use Odiseo\SyliusGeoPlugin\Form\Extension\AddressTypeExtension;
 use PhpSpec\ObjectBehavior;
 use Sylius\Bundle\AddressingBundle\Form\Type\AddressType;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
 use Symfony\Component\Form\AbstractTypeExtension;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 final class AddressTypeExtensionSpec extends ObjectBehavior
 {
-    function let(
-        GeoContextInterface $geoContext,
-        RepositoryInterface $countryRepository,
-        FirewallMap $firewallMap,
-        RequestStack $requestStack
-    ) {
-        $this->beConstructedWith(
-            $geoContext,
-            $countryRepository,
-            true,
-            true,
-            $firewallMap,
-            $requestStack
-        );
+    function let(GeoContextInterface $geoContext, RepositoryInterface $countryRepository)
+    {
+        $this->beConstructedWith($geoContext, $countryRepository, true, true);
     }
 
     function it_is_initializable()
