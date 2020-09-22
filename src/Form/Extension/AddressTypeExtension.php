@@ -53,7 +53,10 @@ final class AddressTypeExtension extends AbstractTypeExtension
         );
     }
 
-    public function onPostSetData(FormEvent $event)
+    /**
+     * @param FormEvent $event
+     */
+    public function onPostSetData(FormEvent $event): void
     {
         $address = $event->getData();
         $form = $event->getForm();
@@ -61,7 +64,6 @@ final class AddressTypeExtension extends AbstractTypeExtension
         if (!$address instanceof AddressInterface) {
             $countryCode = $this->geoContext->getCountryCode();
 
-            /** @var CountryInterface $country */
             $country = $this->countryRepository->findOneBy([
                 'code' => $countryCode
             ]);
@@ -79,7 +81,7 @@ final class AddressTypeExtension extends AbstractTypeExtension
             if ($this->enabledCityName) {
                 $cityName = $this->geoContext->getCityName();
 
-                if ($cityName) {
+                if (null !== $cityName) {
                     $form
                         ->remove('city')
                         ->add('city', TextType::class, [
@@ -93,7 +95,7 @@ final class AddressTypeExtension extends AbstractTypeExtension
             if ($this->enabledPostalCode) {
                 $postalCode = $this->geoContext->getPostalCode();
 
-                if ($postalCode) {
+                if (null !== $postalCode) {
                     $form
                         ->remove('postcode')
                         ->add('postcode', TextType::class, [

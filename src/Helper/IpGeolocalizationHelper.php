@@ -39,7 +39,7 @@ final class IpGeolocalizationHelper implements IpGeolocalizationHelperInterface
     public function getContinentCode(): ?string
     {
         $continentCode = $this->getGeoParameter('continentCode');
-        if (!$continentCode) {
+        if (null === $continentCode) {
             try {
                 $continentCode = $this->getCityRecord()->continent->code;
             } catch (\Exception $e) {
@@ -58,7 +58,7 @@ final class IpGeolocalizationHelper implements IpGeolocalizationHelperInterface
     public function getCountryCode(): ?string
     {
         $countryCode = $this->getGeoParameter('countryCode');
-        if (!$countryCode) {
+        if (null === $countryCode) {
             try {
                 $countryCode = $this->getCityRecord()->country->isoCode;
             } catch (\Exception $e) {
@@ -77,7 +77,7 @@ final class IpGeolocalizationHelper implements IpGeolocalizationHelperInterface
     public function getCityName(): ?string
     {
         $cityName = $this->getGeoParameter('cityName');
-        if (!$cityName) {
+        if (null === $cityName) {
             try {
                 $cityName = $this->getCityRecord()->city->name;
             } catch (\Exception $e) {
@@ -96,7 +96,7 @@ final class IpGeolocalizationHelper implements IpGeolocalizationHelperInterface
     public function getPostalCode(): ?string
     {
         $postalCode = $this->getGeoParameter('postalCode');
-        if (!$postalCode) {
+        if (null === $postalCode) {
             try {
                 $postalCode = $this->getCityRecord()->postal->code;
             } catch (\Exception $e) {
@@ -120,6 +120,8 @@ final class IpGeolocalizationHelper implements IpGeolocalizationHelperInterface
         $request = $this->requestStack->getMasterRequest();
 
         $ip = $request->getClientIp() === '127.0.0.1' ? '110.33.122.75' : $request->getClientIp();
+
+        $ip = $ip === null ? '' : $ip;
 
         return $this->reader->city($ip);
     }
@@ -147,7 +149,7 @@ final class IpGeolocalizationHelper implements IpGeolocalizationHelperInterface
     {
         $sessionParameter = '_geo_'.$parameter;
 
-        if ($geo) {
+        if (null !== $geo) {
             $this->session->set($sessionParameter, $geo);
         }
     }
