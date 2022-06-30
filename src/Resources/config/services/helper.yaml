@@ -1,6 +1,6 @@
 services:
-    odiseo_sylius_geo_plugin.helper.ip_geo_localization:
-        class: Odiseo\SyliusGeoPlugin\Helper\IpGeolocalizationHelper
+    odiseo_sylius_geo_plugin.helper.ip_geo_location:
+        class: Odiseo\SyliusGeoPlugin\Helper\IpGeolocationHelper
         arguments:
             - '@request_stack'
             - '@session'

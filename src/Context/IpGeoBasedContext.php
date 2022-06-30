@@ -4,40 +4,30 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusGeoPlugin\Context;
 
-use Odiseo\SyliusGeoPlugin\Helper\IpGeolocalizationHelperInterface;
+use Odiseo\SyliusGeoPlugin\Helper\IpGeolocationHelperInterface;
 
 final class IpGeoBasedContext implements GeoContextInterface
 {
-    /** @var IpGeolocalizationHelperInterface */
-    private $ipGeolocalizationHelper;
+    private IpGeolocationHelperInterface $ipGeolocationHelper;
 
     public function __construct(
-        IpGeolocalizationHelperInterface $ipGeolocalizationHelper
+        IpGeolocationHelperInterface $ipGeolocationHelper
     ) {
-        $this->ipGeolocalizationHelper = $ipGeolocalizationHelper;
+        $this->ipGeolocationHelper = $ipGeolocationHelper;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCountryCode(): ?string
     {
-        return $this->ipGeolocalizationHelper->getCountryCode();
+        return $this->ipGeolocationHelper->getCountryCode();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCityName(): ?string
     {
-        return $this->ipGeolocalizationHelper->getCityName();
+        return $this->ipGeolocationHelper->getCityName();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPostalCode(): ?string
     {
-        return $this->ipGeolocalizationHelper->getPostalCode();
+        return $this->ipGeolocationHelper->getPostalCode();
     }
 }

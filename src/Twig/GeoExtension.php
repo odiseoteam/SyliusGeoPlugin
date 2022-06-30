@@ -4,24 +4,20 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusGeoPlugin\Twig;
 
-use Odiseo\SyliusGeoPlugin\Helper\IpGeolocalizationHelperInterface;
+use Odiseo\SyliusGeoPlugin\Helper\IpGeolocationHelperInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 final class GeoExtension extends AbstractExtension
 {
-    /** @var IpGeolocalizationHelperInterface */
-    private $ipGeolocalizationHelper;
+    private IpGeolocationHelperInterface $ipGeolocationHelper;
 
     public function __construct(
-        IpGeolocalizationHelperInterface $ipGeolocalizationHelper
+        IpGeolocationHelperInterface $ipGeolocationHelper
     ) {
-        $this->ipGeolocalizationHelper = $ipGeolocalizationHelper;
+        $this->ipGeolocationHelper = $ipGeolocationHelper;
     }
 
-    /**
-     * @return array|TwigFunction[]
-     */
     public function getFunctions(): array
     {
         return [
@@ -32,41 +28,26 @@ final class GeoExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @return string|null
-     */
     public function getContinentCode(): ?string
     {
-        return $this->ipGeolocalizationHelper->getContinentCode();
+        return $this->ipGeolocationHelper->getContinentCode();
     }
 
-    /**
-     * @return string|null
-     */
     public function getCountryCode(): ?string
     {
-        return $this->ipGeolocalizationHelper->getCountryCode();
+        return $this->ipGeolocationHelper->getCountryCode();
     }
 
-    /**
-     * @return string|null
-     */
     public function getCityName(): ?string
     {
-        return $this->ipGeolocalizationHelper->getCityName();
+        return $this->ipGeolocationHelper->getCityName();
     }
 
-    /**
-     * @return string|null
-     */
     public function getPostalCode(): ?string
     {
-        return $this->ipGeolocalizationHelper->getPostalCode();
+        return $this->ipGeolocationHelper->getPostalCode();
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return 'geo';

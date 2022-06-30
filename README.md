@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://odiseo.com.ar/" target="_blank" title="Odiseo">
+    <a href="https://odiseo.io/" target="_blank" title="Odiseo">
         <img src="https://github.com/odiseoteam/SyliusGeoPlugin/blob/master/sylius-geo-plugin.png" alt="Sylius Geo Plugin" />
     </a>
     <br />
@@ -9,14 +9,20 @@
     <a href="https://packagist.org/packages/odiseoteam/sylius-geo-plugin" title="Version" target="_blank">
         <img src="https://img.shields.io/packagist/v/odiseoteam/sylius-geo-plugin.svg" />
     </a>
-    <a href="http://travis-ci.org/odiseoteam/SyliusGeoPlugin" title="Build status" target="_blank">
-        <img src="https://img.shields.io/travis/odiseoteam/SyliusGeoPlugin/master.svg" />
+    <a href="https://github.com/odiseoteam/SyliusGeoPlugin/actions" title="Build Status" target="_blank">
+        <img src="https://img.shields.io/github/workflow/status/odiseoteam/SyliusGeoPlugin/Build" />
     </a>
     <a href="https://scrutinizer-ci.com/g/odiseoteam/SyliusGeoPlugin/" title="Scrutinizer" target="_blank">
         <img src="https://img.shields.io/scrutinizer/g/odiseoteam/SyliusGeoPlugin.svg" />
     </a>
     <a href="https://packagist.org/packages/odiseoteam/sylius-geo-plugin" title="Total Downloads" target="_blank">
         <img src="https://poser.pugx.org/odiseoteam/sylius-geo-plugin/downloads" />
+    </a>
+    <a href="https://sylius-devs.slack.com" title="Slack" target="_blank">
+        <img src="https://img.shields.io/badge/community%20chat-slack-FF1493.svg" />
+    </a>
+    <a href="https://odiseo.io/contact?utm_source=github&utm_medium=referral&utm_campaign=plugins_referrals" title="Support" target="_blank">
+        <img src="https://img.shields.io/badge/support-contact%20author-blue" />
     </a>
 </p>
 <p align="center"><a href="https://sylius.com/partners/odiseo/" target="_blank"><img src="https://github.com/odiseoteam/SyliusGeoPlugin/blob/master/badge-partner-by-sylius.png" width="140"></a></p>
@@ -32,7 +38,7 @@ Features:
 
 * Twig helpers: Provides cool twig helpers to get continent, country, city and postal code.
 
-Support Sylius version 1.3+.
+Support Sylius version 1.10+.
 
 ## Demo
 

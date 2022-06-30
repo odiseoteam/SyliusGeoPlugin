@@ -18,17 +18,10 @@ use Symfony\Component\Form\FormEvents;
 
 final class AddressTypeExtension extends AbstractTypeExtension
 {
-    /** @var GeoContextInterface */
-    private $geoContext;
-
-    /** @var RepositoryInterface */
-    private $countryRepository;
-
-    /** @var bool */
-    private $enabledCityName;
-
-    /** @var bool */
-    private $enabledPostalCode;
+    private GeoContextInterface $geoContext;
+    private RepositoryInterface $countryRepository;
+    private bool $enabledCityName;
+    private bool $enabledPostalCode;
 
     public function __construct(
         GeoContextInterface $geoContext,
@@ -42,9 +35,6 @@ final class AddressTypeExtension extends AbstractTypeExtension
         $this->enabledPostalCode = $enabledPostalCode;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addEventListener(
@@ -53,9 +43,6 @@ final class AddressTypeExtension extends AbstractTypeExtension
         );
     }
 
-    /**
-     * @param FormEvent $event
-     */
     public function onPostSetData(FormEvent $event): void
     {
         $address = $event->getData();
@@ -108,9 +95,6 @@ final class AddressTypeExtension extends AbstractTypeExtension
         }
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function getExtendedTypes(): iterable
     {
         return [AddressType::class];

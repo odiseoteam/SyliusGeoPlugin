@@ -15,6 +15,5 @@ default:
                 - sylius.behat.context.ui.shop.checkout.addressing
 
                 - odiseo_sylius_geo_plugin.context.ui.shop.geo
-
             filters:
                 tags: "@geo && @ui"

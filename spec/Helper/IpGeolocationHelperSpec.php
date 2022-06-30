@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace spec\Odiseo\SyliusGeoPlugin\Helper;
 
 use GeoIp2\Database\Reader;
-use Odiseo\SyliusGeoPlugin\Helper\IpGeolocalizationHelper;
-use Odiseo\SyliusGeoPlugin\Helper\IpGeolocalizationHelperInterface;
+use Odiseo\SyliusGeoPlugin\Helper\IpGeolocationHelper;
+use Odiseo\SyliusGeoPlugin\Helper\IpGeolocationHelperInterface;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-final class IpGeolocalizationHelperSpec extends ObjectBehavior
+final class IpGeolocationHelperSpec extends ObjectBehavior
 {
     function let(RequestStack $requestStack, Session $session, Reader $reader)
     {
@@ -20,12 +20,12 @@ final class IpGeolocalizationHelperSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(IpGeolocalizationHelper::class);
+        $this->shouldHaveType(IpGeolocationHelper::class);
     }
 
-    function it_should_implement_geo_context_interface()
+    function it_should_implement_geolocation_interface()
     {
-        $this->shouldImplement(IpGeolocalizationHelperInterface::class);
+        $this->shouldImplement(IpGeolocationHelperInterface::class);
     }
 
     function it_get_country_code_from_session(Session $session)

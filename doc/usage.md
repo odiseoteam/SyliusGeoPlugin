@@ -2,7 +2,7 @@
 
 This plugin comes with great twig functions.
 
-#### Get the twig methods on your template
+### Get the twig methods on your template
 
 ```twig
 {% set continent = geo_continent_code() %}

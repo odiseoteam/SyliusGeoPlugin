@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace spec\Odiseo\SyliusGeoPlugin\Twig;
 
-use Odiseo\SyliusGeoPlugin\Context\GeoContextInterface;
-use Odiseo\SyliusGeoPlugin\Context\IpGeoBasedContext;
-use Odiseo\SyliusGeoPlugin\Helper\IpGeolocalizationHelperInterface;
+use Odiseo\SyliusGeoPlugin\Helper\IpGeolocationHelperInterface;
 use Odiseo\SyliusGeoPlugin\Twig\GeoExtension;
 use PhpSpec\ObjectBehavior;
 use Twig\Extension\AbstractExtension;
 
 final class GeoExtensionSpec extends ObjectBehavior
 {
-    function let(IpGeolocalizationHelperInterface $ipGeolocalizationHelper)
+    function let(IpGeolocationHelperInterface $ipGeolocationHelper)
     {
-        $this->beConstructedWith($ipGeolocalizationHelper);
+        $this->beConstructedWith($ipGeolocationHelper);
     }
 
     function it_is_initializable()
@@ -28,31 +26,31 @@ final class GeoExtensionSpec extends ObjectBehavior
         $this->shouldHaveType(AbstractExtension::class);
     }
 
-    function it_get_continent_code_with_given_ip_geolocalization_helper(
-        IpGeolocalizationHelperInterface $ipGeolocalizationHelper
+    function it_get_continent_code_with_given_ip_geolocation_helper(
+        IpGeolocationHelperInterface $ipGeolocationHelper
     ) {
-        $ipGeolocalizationHelper->getContinentCode()->willReturn('NA');
+        $ipGeolocationHelper->getContinentCode()->willReturn('NA');
         $this->getContinentCode()->shouldReturn('NA');
     }
 
-    function it_get_country_code_with_given_ip_geolocalization_helper(
-        IpGeolocalizationHelperInterface $ipGeolocalizationHelper
+    function it_get_country_code_with_given_ip_geolocation_helper(
+        IpGeolocationHelperInterface $ipGeolocationHelper
     ) {
-        $ipGeolocalizationHelper->getCountryCode()->willReturn('US');
+        $ipGeolocationHelper->getCountryCode()->willReturn('US');
         $this->getCountryCode()->shouldReturn('US');
     }
 
-    function it_get_city_name_with_given_ip_geolocalization_helper(
-        IpGeolocalizationHelperInterface $ipGeolocalizationHelper
+    function it_get_city_name_with_given_ip_geolocation_helper(
+        IpGeolocationHelperInterface $ipGeolocationHelper
     ) {
-        $ipGeolocalizationHelper->getCityName()->willReturn('Minneapolis');
+        $ipGeolocationHelper->getCityName()->willReturn('Minneapolis');
         $this->getCityName()->shouldReturn('Minneapolis');
     }
 
-    function it_get_postal_code_with_given_ip_geolocalization_helper(
-        IpGeolocalizationHelperInterface $ipGeolocalizationHelper
+    function it_get_postal_code_with_given_ip_geolocation_helper(
+        IpGeolocationHelperInterface $ipGeolocationHelper
     ) {
-        $ipGeolocalizationHelper->getPostalCode()->willReturn('55455');
+        $ipGeolocationHelper->getPostalCode()->willReturn('55455');
         $this->getPostalCode()->shouldReturn('55455');
     }
 }
