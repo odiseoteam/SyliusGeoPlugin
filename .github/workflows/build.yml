@@ -35,6 +35,7 @@ jobs:
         env:
             APP_ENV: test
             DATABASE_URL: "mysql://root:root@127.0.0.1/sylius?serverVersion=${{ matrix.mysql }}"
+            ODISEO_GEOIP_LICENCE_KEY: "${{secrets.GEOIP_LICENCE_KEY}}"
 
         steps:
             -
@@ -157,6 +158,10 @@ jobs:
             -
                 name: Validate database schema
                 run: (cd tests/Application && bin/console doctrine:schema:validate)
+
+            -
+                name: Update GeoIP database
+                run: (cd tests/Application && bin/console geoip2:update)
 
             -
                 name: Run PHPCS
