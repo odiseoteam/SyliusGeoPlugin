@@ -9,6 +9,8 @@ This plugin comes with great twig functions.
 {% set country = geo_country_code() %}
 {% set city = geo_city_name() %}
 {% set postal_code = geo_postal_code() %}
+{% set latitude = geo_latitude() %}
+{% set longitude = geo_longitude() %}
 ```
 
 You can enable or disable some features in checkout addressing step

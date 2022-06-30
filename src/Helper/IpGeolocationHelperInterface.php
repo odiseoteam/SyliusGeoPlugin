@@ -13,4 +13,8 @@ interface IpGeolocationHelperInterface
     public function getCityName(): ?string;
 
     public function getPostalCode(): ?string;
+
+    public function getLatitude(): ?float;
+
+    public function getLongitude(): ?float;
 }

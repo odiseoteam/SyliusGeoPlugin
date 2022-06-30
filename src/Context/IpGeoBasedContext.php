@@ -30,4 +30,14 @@ final class IpGeoBasedContext implements GeoContextInterface
     {
         return $this->ipGeolocationHelper->getPostalCode();
     }
+
+    public function getLatitude(): ?float
+    {
+        return $this->ipGeolocationHelper->getLatitude();
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->ipGeolocationHelper->getLongitude();
+    }
 }

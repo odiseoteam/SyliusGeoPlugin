@@ -90,6 +90,38 @@ final class IpGeolocationHelper implements IpGeolocationHelperInterface
         return $postalCode;
     }
 
+    public function getLatitude(): ?float
+    {
+        $latitude = $this->getGeoParameter('latitude');
+        if (null === $latitude) {
+            try {
+                $latitude = $this->getCityRecord()->location->latitude;
+            } catch (\Exception $e) {
+                $latitude = null;
+            }
+
+            $this->setGeoParameter('latitude', $latitude);
+        }
+
+        return $latitude;
+    }
+
+    public function getLongitude(): ?float
+    {
+        $longitude = $this->getGeoParameter('longitude');
+        if (null === $longitude) {
+            try {
+                $longitude = $this->getCityRecord()->location->longitude;
+            } catch (\Exception $e) {
+                $longitude = null;
+            }
+
+            $this->setGeoParameter('longitude', $longitude);
+        }
+
+        return $longitude;
+    }
+
     private function getCityRecord(): City
     {
         /** @var Request $request */
@@ -102,7 +134,10 @@ final class IpGeolocationHelper implements IpGeolocationHelperInterface
         return $this->reader->city($ip);
     }
 
-    private function getGeoParameter(string $parameter): ?string
+    /**
+     * @return mixed
+     */
+    private function getGeoParameter(string $parameter)
     {
         $sessionParameter = '_geo_' . $parameter;
 
@@ -113,7 +148,10 @@ final class IpGeolocationHelper implements IpGeolocationHelperInterface
         return null;
     }
 
-    private function setGeoParameter(string $parameter, ?string $geo): void
+    /**
+     * @param mixed $geo
+     */
+    private function setGeoParameter(string $parameter, $geo): void
     {
         $sessionParameter = '_geo_' . $parameter;
 

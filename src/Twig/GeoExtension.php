@@ -24,7 +24,9 @@ final class GeoExtension extends AbstractExtension
             new TwigFunction('geo_continent_code', [$this, 'getContinentCode']),
             new TwigFunction('geo_country_code', [$this, 'getCountryCode']),
             new TwigFunction('geo_city_name', [$this, 'getCityName']),
-            new TwigFunction('geo_postal_code', [$this, 'getPostalCode'])
+            new TwigFunction('geo_postal_code', [$this, 'getPostalCode']),
+            new TwigFunction('geo_latitude', [$this, 'getLatitude']),
+            new TwigFunction('geo_longitude', [$this, 'getLongitude'])
         ];
     }
 
@@ -46,6 +48,16 @@ final class GeoExtension extends AbstractExtension
     public function getPostalCode(): ?string
     {
         return $this->ipGeolocationHelper->getPostalCode();
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->ipGeolocationHelper->getLatitude();
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->ipGeolocationHelper->getLongitude();
     }
 
     public function getName(): string
