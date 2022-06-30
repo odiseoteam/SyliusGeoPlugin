@@ -21,7 +21,7 @@
     <a href="https://sylius-devs.slack.com" title="Slack" target="_blank">
         <img src="https://img.shields.io/badge/community%20chat-slack-FF1493.svg" />
     </a>
-    <a href="https://odiseo.io/contact?utm_source=github&utm_medium=referral&utm_campaign=plugins_referrals" title="Support" target="_blank">
+    <a href="https://odiseo.io/contact?utm_source=github&utm_medium=referral&utm_campaign=plugins_geo" title="Support" target="_blank">
         <img src="https://img.shields.io/badge/support-contact%20author-blue" />
     </a>
 </p>
