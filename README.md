@@ -10,7 +10,7 @@
         <img src="https://img.shields.io/packagist/v/odiseoteam/sylius-geo-plugin.svg" />
     </a>
     <a href="https://github.com/odiseoteam/SyliusGeoPlugin/actions" title="Build Status" target="_blank">
-        <img src="https://img.shields.io/github/workflow/status/odiseoteam/SyliusGeoPlugin/Build" />
+        <img src="https://img.shields.io/github/actions/workflow/status/odiseoteam/SyliusGeoPlugin/build.yml" />
     </a>
     <a href="https://scrutinizer-ci.com/g/odiseoteam/SyliusGeoPlugin/" title="Scrutinizer" target="_blank">
         <img src="https://img.shields.io/scrutinizer/g/odiseoteam/SyliusGeoPlugin.svg" />
@@ -21,7 +21,7 @@
     <a href="https://sylius-devs.slack.com" title="Slack" target="_blank">
         <img src="https://img.shields.io/badge/community%20chat-slack-FF1493.svg" />
     </a>
-    <a href="https://odiseo.io/contact?utm_source=github&utm_medium=referral&utm_campaign=plugins_geo" title="Support" target="_blank">
+    <a href="https://odiseo.io/contact-us" title="Support" target="_blank">
         <img src="https://img.shields.io/badge/support-contact%20author-blue" />
     </a>
 </p>
@@ -38,7 +38,7 @@ Features:
 
 * Twig helpers: Provides cool twig helpers to get continent, country, city and postal code.
 
-Support Sylius version 1.10+.
+Support Sylius version 1.9+.
 
 ## Demo
 

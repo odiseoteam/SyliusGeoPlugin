@@ -13,16 +13,13 @@ use Symfony\Component\HttpFoundation\Session\Session;
 final class IpGeolocationHelper implements IpGeolocationHelperInterface
 {
     private RequestStack $requestStack;
-    private Session $session;
     private Reader $reader;
 
     public function __construct(
         RequestStack $requestStack,
-        Session $session,
         Reader $reader
     ) {
         $this->requestStack = $requestStack;
-        $this->session = $session;
         $this->reader = $reader;
     }
 
@@ -141,8 +138,8 @@ final class IpGeolocationHelper implements IpGeolocationHelperInterface
     {
         $sessionParameter = '_geo_' . $parameter;
 
-        if ($this->session->has($sessionParameter)) {
-            return $this->session->get($sessionParameter);
+        if ($this->requestStack->getSession()->has($sessionParameter)) {
+            return $this->requestStack->getSession()->get($sessionParameter);
         }
 
         return null;
@@ -156,7 +153,7 @@ final class IpGeolocationHelper implements IpGeolocationHelperInterface
         $sessionParameter = '_geo_' . $parameter;
 
         if (null !== $geo) {
-            $this->session->set($sessionParameter, $geo);
+            $this->requestStack->getSession()->set($sessionParameter, $geo);
         }
     }
 }
