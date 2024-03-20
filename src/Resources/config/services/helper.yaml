@@ -3,5 +3,4 @@ services:
         class: Odiseo\SyliusGeoPlugin\Helper\IpGeolocationHelper
         arguments:
             - '@request_stack'
-            - '@session'
             - '@geoip2.reader'

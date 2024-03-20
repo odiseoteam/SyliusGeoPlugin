@@ -8,26 +8,18 @@ use GeoIp2\Database\Reader;
 use GeoIp2\Model\City;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 final class IpGeolocationHelper implements IpGeolocationHelperInterface
 {
-    private RequestStack $requestStack;
-    private Session $session;
-    private Reader $reader;
-
     public function __construct(
-        RequestStack $requestStack,
-        Session $session,
-        Reader $reader
+        private RequestStack $requestStack,
+        private Reader $reader,
     ) {
-        $this->requestStack = $requestStack;
-        $this->session = $session;
-        $this->reader = $reader;
     }
 
     public function getContinentCode(): ?string
     {
+        /** @var string|null $continentCode */
         $continentCode = $this->getGeoParameter('continentCode');
         if (null === $continentCode) {
             try {
@@ -44,6 +36,7 @@ final class IpGeolocationHelper implements IpGeolocationHelperInterface
 
     public function getCountryCode(): ?string
     {
+        /** @var string|null $countryCode */
         $countryCode = $this->getGeoParameter('countryCode');
         if (null === $countryCode) {
             try {
@@ -60,6 +53,7 @@ final class IpGeolocationHelper implements IpGeolocationHelperInterface
 
     public function getCityName(): ?string
     {
+        /** @var string|null $cityName */
         $cityName = $this->getGeoParameter('cityName');
         if (null === $cityName) {
             try {
@@ -76,6 +70,7 @@ final class IpGeolocationHelper implements IpGeolocationHelperInterface
 
     public function getPostalCode(): ?string
     {
+        /** @var string|null $postalCode */
         $postalCode = $this->getGeoParameter('postalCode');
         if (null === $postalCode) {
             try {
@@ -92,6 +87,7 @@ final class IpGeolocationHelper implements IpGeolocationHelperInterface
 
     public function getLatitude(): ?float
     {
+        /** @var float|null $latitude */
         $latitude = $this->getGeoParameter('latitude');
         if (null === $latitude) {
             try {
@@ -108,6 +104,7 @@ final class IpGeolocationHelper implements IpGeolocationHelperInterface
 
     public function getLongitude(): ?float
     {
+        /** @var float|null $longitude */
         $longitude = $this->getGeoParameter('longitude');
         if (null === $longitude) {
             try {
@@ -134,29 +131,23 @@ final class IpGeolocationHelper implements IpGeolocationHelperInterface
         return $this->reader->city($ip);
     }
 
-    /**
-     * @return mixed
-     */
-    private function getGeoParameter(string $parameter)
+    private function getGeoParameter(string $parameter): mixed
     {
         $sessionParameter = '_geo_' . $parameter;
 
-        if ($this->session->has($sessionParameter)) {
-            return $this->session->get($sessionParameter);
+        if ($this->requestStack->getSession()->has($sessionParameter)) {
+            return $this->requestStack->getSession()->get($sessionParameter);
         }
 
         return null;
     }
 
-    /**
-     * @param mixed $geo
-     */
-    private function setGeoParameter(string $parameter, $geo): void
+    private function setGeoParameter(string $parameter, mixed $geo): void
     {
         $sessionParameter = '_geo_' . $parameter;
 
         if (null !== $geo) {
-            $this->session->set($sessionParameter, $geo);
+            $this->requestStack->getSession()->set($sessionParameter, $geo);
         }
     }
 }

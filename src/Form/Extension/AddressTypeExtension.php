@@ -18,28 +18,19 @@ use Symfony\Component\Form\FormEvents;
 
 final class AddressTypeExtension extends AbstractTypeExtension
 {
-    private GeoContextInterface $geoContext;
-    private RepositoryInterface $countryRepository;
-    private bool $enabledCityName;
-    private bool $enabledPostalCode;
-
     public function __construct(
-        GeoContextInterface $geoContext,
-        RepositoryInterface $countryRepository,
-        bool $enabledCityName,
-        bool $enabledPostalCode
+        private GeoContextInterface $geoContext,
+        private RepositoryInterface $countryRepository,
+        private bool $enabledCityName,
+        private bool $enabledPostalCode,
     ) {
-        $this->geoContext = $geoContext;
-        $this->countryRepository = $countryRepository;
-        $this->enabledCityName = $enabledCityName;
-        $this->enabledPostalCode = $enabledPostalCode;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addEventListener(
             FormEvents::POST_SET_DATA,
-            [$this, 'onPostSetData']
+            [$this, 'onPostSetData'],
         );
     }
 
@@ -52,7 +43,7 @@ final class AddressTypeExtension extends AbstractTypeExtension
             $countryCode = $this->geoContext->getCountryCode();
 
             $country = $this->countryRepository->findOneBy([
-                'code' => $countryCode
+                'code' => $countryCode,
             ]);
 
             if ($country instanceof CountryInterface) {
@@ -60,7 +51,7 @@ final class AddressTypeExtension extends AbstractTypeExtension
                     ->remove('countryCode')
                     ->add('countryCode', CountryCodeChoiceType::class, [
                         'label' => 'sylius.form.address.country',
-                        'data' => $countryCode
+                        'data' => $countryCode,
                     ])
                 ;
             }
@@ -73,7 +64,7 @@ final class AddressTypeExtension extends AbstractTypeExtension
                         ->remove('city')
                         ->add('city', TextType::class, [
                             'label' => 'sylius.form.address.city',
-                            'data' => $cityName
+                            'data' => $cityName,
                         ])
                     ;
                 }
@@ -87,7 +78,7 @@ final class AddressTypeExtension extends AbstractTypeExtension
                         ->remove('postcode')
                         ->add('postcode', TextType::class, [
                             'label' => 'sylius.form.address.postcode',
-                            'data' => $postalCode
+                            'data' => $postalCode,
                         ])
                     ;
                 }

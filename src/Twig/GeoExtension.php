@@ -10,12 +10,9 @@ use Twig\TwigFunction;
 
 final class GeoExtension extends AbstractExtension
 {
-    private IpGeolocationHelperInterface $ipGeolocationHelper;
-
     public function __construct(
-        IpGeolocationHelperInterface $ipGeolocationHelper
+        private IpGeolocationHelperInterface $ipGeolocationHelper,
     ) {
-        $this->ipGeolocationHelper = $ipGeolocationHelper;
     }
 
     public function getFunctions(): array
@@ -26,7 +23,7 @@ final class GeoExtension extends AbstractExtension
             new TwigFunction('geo_city_name', [$this, 'getCityName']),
             new TwigFunction('geo_postal_code', [$this, 'getPostalCode']),
             new TwigFunction('geo_latitude', [$this, 'getLatitude']),
-            new TwigFunction('geo_longitude', [$this, 'getLongitude'])
+            new TwigFunction('geo_longitude', [$this, 'getLongitude']),
         ];
     }
 
