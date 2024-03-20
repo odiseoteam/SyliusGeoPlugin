@@ -8,12 +8,9 @@ use Odiseo\SyliusGeoPlugin\Helper\IpGeolocationHelperInterface;
 
 final class IpGeoBasedContext implements GeoContextInterface
 {
-    private IpGeolocationHelperInterface $ipGeolocationHelper;
-
     public function __construct(
-        IpGeolocationHelperInterface $ipGeolocationHelper,
+        private IpGeolocationHelperInterface $ipGeolocationHelper,
     ) {
-        $this->ipGeolocationHelper = $ipGeolocationHelper;
     }
 
     public function getCountryCode(): ?string

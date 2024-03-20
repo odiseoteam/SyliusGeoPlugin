@@ -11,16 +11,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 final class IpGeolocationHelper implements IpGeolocationHelperInterface
 {
-    private RequestStack $requestStack;
-
-    private Reader $reader;
-
     public function __construct(
-        RequestStack $requestStack,
-        Reader $reader,
+        private RequestStack $requestStack,
+        private Reader $reader,
     ) {
-        $this->requestStack = $requestStack;
-        $this->reader = $reader;
     }
 
     public function getContinentCode(): ?string
