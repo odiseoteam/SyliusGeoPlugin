@@ -13,9 +13,9 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 final class IpGeolocationHelperSpec extends ObjectBehavior
 {
-    function let(RequestStack $requestStack, Session $session, Reader $reader)
+    function let(RequestStack $requestStack, Reader $reader)
     {
-        $this->beConstructedWith($requestStack, $session, $reader);
+        $this->beConstructedWith($requestStack, $reader);
     }
 
     function it_is_initializable()
@@ -28,10 +28,15 @@ final class IpGeolocationHelperSpec extends ObjectBehavior
         $this->shouldImplement(IpGeolocationHelperInterface::class);
     }
 
-    function it_get_country_code_from_session(Session $session)
-    {
+    function it_get_country_code_from_session(
+        RequestStack $requestStack,
+        Session $session
+    ) {
+        $requestStack->getSession()->willReturn($session);
+
         $session->has('_geo_countryCode')->shouldBeCalled()->willReturn(true);
         $session->get('_geo_countryCode')->shouldBeCalled()->willReturn('US');
+
         $this->getCountryCode()->shouldReturn('US');
     }
 }

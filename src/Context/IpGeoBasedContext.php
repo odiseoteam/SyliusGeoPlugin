@@ -11,7 +11,7 @@ final class IpGeoBasedContext implements GeoContextInterface
     private IpGeolocationHelperInterface $ipGeolocationHelper;
 
     public function __construct(
-        IpGeolocationHelperInterface $ipGeolocationHelper
+        IpGeolocationHelperInterface $ipGeolocationHelper,
     ) {
         $this->ipGeolocationHelper = $ipGeolocationHelper;
     }
